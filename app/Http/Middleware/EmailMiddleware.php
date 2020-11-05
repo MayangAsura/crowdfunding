@@ -17,10 +17,10 @@ class EmailMiddleware
      */
     public function handle($request, Closure $next){
 
-        $user = new User();
-        if($user->isVerified()){
+        if(Auth::user()->isVerified()){
             return $next($request);
         }
+        abort(403);
         
     }
 }

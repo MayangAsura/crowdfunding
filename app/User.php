@@ -12,12 +12,12 @@ class User extends Authenticatable
     use Notifiable, UuidTrait;
 
     protected function get_admin_id(){
-        $role = \App\Role:: where('name', 'admin')->first();
+        $role = Role::where('name', 'admin')->first();
         return $role->id;
     }
 
     protected function get_guest_id(){
-        $role = \App\Role:: where('name', 'guest')->first();
+        $role = Role::where('name', 'guest')->first();
         return $role->id;
     }
 

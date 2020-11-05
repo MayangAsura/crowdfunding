@@ -17,10 +17,11 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $user = new User();
-        if($user->isAdmin()){
+        if(Auth::user()->isAdmin()){
+            // dd(Auth::user());
             return $next($request);
         }
+        // dd(Auth::user());
         abort(403);
         
     }
