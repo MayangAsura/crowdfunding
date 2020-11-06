@@ -17,10 +17,17 @@ class EmailMiddleware
      */
     public function handle($request, Closure $next){
 
-        if(Auth::user()->isVerified()){
+        $user = auth()->user();
+        // dd(auth()->user());
+        if($user->email_verified_at != null){
             return $next($request);
         }
-        abort(403);
+        // abort(403);
+        else{
+            return response()->json([
+                'message' => 'Email Belum terverifikasi'
+            ]);   
+        }
         
     }
 }

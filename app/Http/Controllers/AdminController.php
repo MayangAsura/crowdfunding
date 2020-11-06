@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function __construct(){
-        $this->middleware(['emailMid', 'adminMid', 'auth']);
-    }
+    // public function __construct(){
+    //     $this->middleware(['emailMid', 'adminMid', 'auth']);
+    // }
 
     public function room1(){
         return 'Berhasil Masuk karena Email sudah diverifikasi';

@@ -18,19 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Route::middleware(['emailMid', 'auth'])->group(function(){
-    Route::get('route-1', 'AdminController@room1');
-    
-});
-Route::middleware(['adminMid','emailMid', 'auth'])->group(function(){
-    Route::get('route-2', 'AdminController@room2');
-});
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('route-1', function () {
+    return "masuk sebagai admin";
+})->middleware(['admin', 'email', 'auth']);
+
+Route::get('route-2', function () {
+    return "masuk sebagai admin";
+})->middleware(['email', 'auth']);
+
+
+
+
+
 
 
 
