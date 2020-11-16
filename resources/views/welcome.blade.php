@@ -1,100 +1,88 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
+​
+        <title>Ajax Request With Axios + Vue</title>
+​
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        <div id="app">
+            <input type="text" v-model="name_input">
+            
+            <button v-show="add" @click="tambah"> Add </button>
+            <button v-show="!add" @click="update"> Update</button>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+            <ul>
+                <li v-for="(user, index) in users">
+                    @{{ user.nama}} <button @click="edit(index, user)">Edit </button> || <button type="button" @click="hapus(index, user)">Delete</button>
+                </li>
+            </ul>
         </div>
+​
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script src="{{ asset('vendor/vue.js')}} "></script>
+
+        <script type="text/javascript">
+                    
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    name_input: '',
+                    add: true,
+                    tmp_id: null,
+                    user_id: null,
+                    users: []
+                        // {name: 'Ani'},
+                        // {name: 'Budi'},
+                        // {name: 'Tono'},
+                    
+                },
+                methods: {
+                    tambah: function(){
+                        // this.users.push({name: this.name_input})
+                        let namaIn = this.name_input;
+                        axios.post('/api', { nama: namaIn }).then( response => {
+                            this.users.push({nama: namaIn})
+                        });
+                        this.name_input = ''
+                    },
+                    edit: function(index, user){
+                        this.name_input = this.users[index].nama
+                        this.add = false
+                        this.tmp_id = index
+                        this.user_id = user.id
+                    },
+                    hapus: function(index, user){
+                        var r = confirm('Anda Yakin?')
+                        if(r){
+                            axios.post('/api/delete/' + user.id).then(response => {
+                                this.users.splice(index, 1)
+                            })
+                        }
+                    },
+                    update: function(){
+                        console.log(this.user_id)
+                        let namaIn = this.name_input;
+                        let id = this.tmp_id
+                        axios.post('/api/edit/'+ this.user_id, { nama: namaIn }).then( response => {
+                            this.users[id].nama = namaIn
+                        });
+                        this.tmp_id = null
+                        this.name_input = ''
+                    }
+                },
+                mounted() {
+                    axios.get('/api').then(response => {this.users = response.data.data} );
+                }
+            })
+        </script>
+
     </body>
 </html>

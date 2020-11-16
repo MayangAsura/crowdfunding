@@ -30,6 +30,33 @@ Route::get('route-2', function () {
 })->middleware(['email', 'auth']);
 
 
+Route::get('/post', function() {
+    $a = [
+        [
+            'title' => 'Belajar VueJS',
+            'author'    => 'Daengweb.id'
+        ],
+        [
+            'title' => 'Belajar Laravel',
+            'author'    => 'Anugrah Sandi'
+        ],
+        [
+            'title' => 'Belajar Javascript',
+            'author'    => 'Daengweb.id'
+        ],
+        [
+            'title' => 'Belajar PHP',
+            'author'    => 'Daengweb.id'
+        ],
+        [
+            'title' => 'Belajar HTML',
+            'author'    => 'Daengweb.id'
+        ]
+    ];
+    return $a;
+});
+
+
 
 
 

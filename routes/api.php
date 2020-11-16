@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/', 'ContohAxiosController@index');
+Route::post('/', 'ContohAxiosController@store');
+Route::post('delete/{id}', 'ContohAxiosController@delete');
+Route::post('edit/{id}', 'ContohAxiosController@edit');
