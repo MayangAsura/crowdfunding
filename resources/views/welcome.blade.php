@@ -49,9 +49,9 @@
                         // this.users.push({name: this.name_input})
                         let namaIn = this.name_input;
                         axios.post('/api', { nama: namaIn }).then( response => {
-                            this.users.push({nama: namaIn})
+                            this.users.unshift({nama: namaIn})
+                            this.name_input = ''
                         });
-                        this.name_input = ''
                     },
                     edit: function(index, user){
                         this.name_input = this.users[index].nama
@@ -73,9 +73,11 @@
                         let id = this.tmp_id
                         axios.post('/api/edit/'+ this.user_id, { nama: namaIn }).then( response => {
                             this.users[id].nama = namaIn
+                            this.add = true
+                            this.tmp_id = null
+                            this.name_input = ''
+                            this.user_id = ''
                         });
-                        this.tmp_id = null
-                        this.name_input = ''
                     }
                 },
                 mounted() {

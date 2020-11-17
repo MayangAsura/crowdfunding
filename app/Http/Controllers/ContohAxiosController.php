@@ -16,6 +16,7 @@ class ContohAxiosController extends Controller
     }
 
     public function store(Request $request){
+
         $user = ContohAxio::create([
             'nama' => $request->nama
         ]);
