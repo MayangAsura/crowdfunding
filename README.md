@@ -7,8 +7,13 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## LINK DEMO APLIKASI : https://youtu.be/Ch0xJMnaKtc atau https://bit.ly/DemoAppMayang
-## LINK SCREENSHOT APLIKASI : https://drive.google.com/drive/folders/172VnKBaCogGnsdCvdnfoXm65kLVFRkbS?usp=sharing atau https://bit.ly/SSAplikasiMayang
+## LINK DEMO APLIKASI : 
+
+https://youtu.be/Ch0xJMnaKtc atau https://bit.ly/DemoAppMayang
+
+## LINK SCREENSHOT APLIKASI : 
+
+https://drive.google.com/drive/folders/172VnKBaCogGnsdCvdnfoXm65kLVFRkbS?usp=sharing atau https://bit.ly/SSAplikasiMayang
 
 ## About Laravel
 
